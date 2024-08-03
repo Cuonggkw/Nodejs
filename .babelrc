@@ -1,0 +1,4 @@
+{
+  // Làm cho library hoạt động.
+  "presets": ["@babel/preset-env"]
+}
