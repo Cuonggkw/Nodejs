@@ -35,13 +35,24 @@ const initWebRoutes = (app) => {
 
   // Vào 1 link => contrller sẽ gọi tới it is function.
   router.post("/api/login", userController.handleLogin);
+
   router.get("/api/get-all-users", userController.handleGetAllUsers);
+
   router.post("/api/create-users", userController.handleCreateUsers);
+
   router.put("/api/edit-users", userController.handleEditUsers);
+
   router.delete("/api/delete-users", userController.handleDeleteUsers); // restAPI
 
   router.get("/api/allcode", userController.getAllCode);
+
+  // API Featured Doctor.
   router.get("/api/topdoctor-home", doctorController.getTopDoctorHome);
+
+  // API All Doctor
+  router.get("/api/get-all-doctor", doctorController.getAllDoctors);
+  // API Infor Doctor
+  router.post("/api/save-infor-doctor", doctorController.postInforDoctor);
 
   return app.use("/", router);
 };

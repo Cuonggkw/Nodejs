@@ -17,7 +17,6 @@ const handleLogin = async (req, res) => {
   }
 
   let userData = await userService.handleUserLogin(email, password);
-  // console.log(userData);
   // Check email exist
   //  compare password
   // return userInfor
@@ -40,7 +39,6 @@ let handleGetAllUsers = async (req, res) => {
   }
   // Phải truyền vào đầu vào
   let users = await userService.getAllUsers(id);
-  console.log(users);
   return res.status(200).json({
     errCode: 1,
     errMessage: "OK",
@@ -50,7 +48,6 @@ let handleGetAllUsers = async (req, res) => {
 
 let handleCreateUsers = async (req, res) => {
   let message = await userService.handleCreateUsers(req.body);
-  // console.log(message);
   return res.status(200).json(message);
 };
 
@@ -68,7 +65,6 @@ let handleDeleteUsers = async (req, res) => {
     });
   }
   let message = await userService.deleteUser(req.body.id);
-  // console.log(message);
   return res.status(200).json(message);
 };
 

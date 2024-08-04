@@ -45,7 +45,6 @@ let handleUserLogin = (email, password) => {
           } else {
             userData.errCode = 3;
             userData.errMessage = "Wrong password";
-            // user.errMessage = "Wrong password";
           }
         } else {
           userData.errCode = 2;

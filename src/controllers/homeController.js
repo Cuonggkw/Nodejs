@@ -23,19 +23,15 @@ const getCRUD = async (req, res) => {
 const postCRUD = async (req, res) => {
   // Service có nhiệm vụ nhận data từ homeController.
   const message = await CRUDService.createNewUser(req.body);
-  console.log(message);
 
   return res.send("Post CRUD from sever");
 
   // dòng lệnh được các tham số từ client request lên server.
-  // console.log(req.body);
 };
 
 const readCRUD = async (req, res) => {
   let data = await CRUDService.getAllUser();
-  // console.log("==========");
   // console.log(data);
-  // console.log("==========");
   return res.render("displayCRUD.ejs", {
     dataTable: data,
   });
