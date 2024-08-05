@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT("long"),
       },
-      contentMarkdown: {
+      addcontentMarkdown: {
         allowNull: false,
         type: Sequelize.TEXT("long"),
       },
