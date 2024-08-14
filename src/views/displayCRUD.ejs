@@ -54,23 +54,7 @@
         <th>Phone Number</th>
         <th>gender</th>
         <th>Action</th>
-        <!-- <th>Image</th> -->
-        <!-- <th>RoleId</th> -->
-        <!-- <th>PositionId</th> -->
       </tr>
-      <!-- <tr>
-        <td>cuong@gmail.com</td>
-        <td>123456</td>
-        <td>Cuong</td>
-        <td>Pham</td>
-        <td>UK</td>
-        <td>123456789</td>
-        <td>Nam</td>
-        <td>RYT</td>
-        <td>fbdfhdfv</td>
-        <td>ghdhd</td>
-      </tr> -->
-
       <% for(let i = 0; i < dataTable.length; i++) { %>
       <tr>
         <td><%= dataTable[i].email %></td>
@@ -94,9 +78,6 @@
             >Delete</a
           >
         </td>
-        <!-- <td><%= dataTable[i].image %></td> -->
-        <!-- <td><%= dataTable[i].roleId %></td> -->
-        <!-- <td><%= dataTable[i].positionId %></td> -->
       </tr>
       <% } %>
     </table>
