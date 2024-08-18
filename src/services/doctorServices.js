@@ -160,6 +160,7 @@ let getDetailDoctorById = (inputId) => {
             id: inputId,
           },
           attributes: {
+            // Loại bỏ những trường ko muốn lấy.
             exclude: ["password"],
           },
           include: [
@@ -172,15 +173,37 @@ let getDetailDoctorById = (inputId) => {
               as: "positionData",
               attributes: ["valueEn", "valueVi"],
             },
+            {
+              model: db.Doctor_Infor,
+              attributes: {
+                exclude: ["id", "doctorId"],
+              },
+              include: [
+                {
+                  model: db.Allcode,
+                  as: "priceTypeData",
+                  attributes: ["valueEn", "valueVi"],
+                },
+                {
+                  model: db.Allcode,
+                  as: "provinceTypeData",
+                  attributes: ["valueEn", "valueVi"],
+                },
+                {
+                  model: db.Allcode,
+                  as: "paymentTypeData",
+                  attributes: ["valueEn", "valueVi"],
+                },
+              ],
+            },
           ],
           raw: false,
           nest: true,
         });
         if (data && data.image) {
           data.image = new Buffer(data.image, "base64").toString("binary");
-        } else if (!data) {
-          data = {};
         }
+        if (!data) data = {};
         resolve({
           errCode: 0,
           data: data,
@@ -227,8 +250,6 @@ let bulkCreateSchedule = (data) => {
         if (toCreate && toCreate.length > 0) {
           await db.Schedules.bulkCreate(schedule);
         }
-        // console.log("=====0=====");
-        // console.log("to create", toCreate);
 
         resolve({
           errCode: 0,
@@ -250,7 +271,6 @@ let getScheduleDoctorByDate = (doctorId, date) => {
           errMessage: "Missing required parameter",
         });
       } else {
-        // console.log("Xuat data: ", dataSchedule);
         let dataSchedule = await db.Schedules.findAll({
           where: { doctorId: doctorId, date: date },
           include: [
@@ -276,6 +296,53 @@ let getScheduleDoctorByDate = (doctorId, date) => {
   });
 };
 
+let getExtraInforDoctorById = (inputId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!inputId) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing required paramater!",
+        });
+      } else {
+        let data = await db.Doctor_Infor.findOne({
+          where: { doctorId: inputId },
+          attributes: {
+            exclude: ["id", "doctorId"],
+          },
+          include: [
+            {
+              model: db.Allcode,
+              as: "priceTypeData",
+              attributes: ["valueEn", "valueVi"],
+            },
+            {
+              model: db.Allcode,
+              as: "provinceTypeData",
+              attributes: ["valueEn", "valueVi"],
+            },
+            {
+              model: db.Allcode,
+              as: "paymentTypeData",
+              attributes: ["valueEn", "valueVi"],
+            },
+          ],
+          raw: false,
+          nest: true,
+        });
+        if (!data) data = {};
+
+        resolve({
+          errCode: 0,
+          data: data,
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 module.exports = {
   getTopDoctorHome,
   getAllDoctors,
@@ -283,4 +350,5 @@ module.exports = {
   getDetailDoctorById,
   bulkCreateSchedule,
   getScheduleDoctorByDate,
+  getExtraInforDoctorById,
 };

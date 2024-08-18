@@ -60,6 +60,12 @@ const initWebRoutes = (app) => {
   router.post("/api/bulk-create-schedule", doctorController.bulkCreateSchedule);
   router.get("/api/get-schedule-bydate", doctorController.getScheduleByDate);
 
+  // API Extra Infor Doctor
+  router.get(
+    "/api/get-extra-doctor-infor-by-id",
+    doctorController.getExtraInforDoctorById
+  );
+
   return app.use("/", router);
 };
 
