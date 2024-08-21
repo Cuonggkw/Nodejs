@@ -13,6 +13,7 @@ import homeController, {
   putCRUD,
 } from "../controllers/homeController";
 import doctorController from "../controllers/doctorControllers";
+import patientController from "../controllers/patientController";
 
 const router = express.Router();
 
@@ -68,6 +69,10 @@ const initWebRoutes = (app) => {
   router.get(
     "/api/get-profile-doctor-by-id",
     doctorController.getProfileDoctorById
+  );
+  router.post(
+    "/api/patient-book-appointment",
+    patientController.postBookAppointment
   );
 
   return app.use("/", router);

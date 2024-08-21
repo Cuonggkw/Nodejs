@@ -6,7 +6,6 @@ let getTopDoctorHome = async (req, res) => {
   if (!limit) limit = 10;
   try {
     let respone = await doctorServices.getTopDoctorHome(+limit);
-    // console.log("Test respone", respone);
     return res.status(200).json(respone);
   } catch (e) {
     console.log(e);
