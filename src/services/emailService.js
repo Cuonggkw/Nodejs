@@ -12,10 +12,17 @@ let sendSimpleEmail = async (dataSend) => {
     },
   });
   const info = await transporter.sendMail({
-    from: '"Check email 👻" <cp9188950@gmail.com>', // sender address
+    from: '"Check email 👻"', // sender address
     to: dataSend.reciverEmail, // list of receivers
     subject: "Thông tin đặt lịch khám bệnh", // Subject line
-    html: `
+    html: getBodyHTMLEmail(dataSend),
+  });
+};
+
+let getBodyHTMLEmail = (dataSend) => {
+  let result = "";
+  if (dataSend.language === "vi") {
+    result = `
     <h3>Xin chào ${dataSend.patientName}</h3>
     <p>Bạn nhận được email này vì đã đặt lịch khám bệnh online trên Bookingcare.</p>
     <p>Thông tin đặt lịch khám bệnh:</p>
@@ -27,14 +34,26 @@ let sendSimpleEmail = async (dataSend) => {
      <a href=${dataSend.redirectLink} target="_blank">Click here</a>
     </div>
     <div>Xin chân thành cảm ơn</div>
-    `, // html body
-  });
-};
+    `;
+  }
+  if (dataSend.language === "en") {
+    result = `
+    <h3>Hello ${dataSend.patientName}</h3>
+    <p>You received this email because you booked an online medical appointment on Bookingcare.</p>
+    <p>Appointment information:</p>
+    <div><b>Time: ${dataSend.time}</b></div>
+    <div><b>Doctor: ${dataSend.doctorName}</b></div>
 
-// async..await is not allowed in global scope, must use a wrapper
-async function main() {
-  // send mail with defined transport object
-}
+    <p>If the above information is correct. Please click on the link to confirm and complete the appointment procedure.</p>
+    <div>
+     <a href=${dataSend.redirectLink} target="_blank">Click here</a>
+    </div>
+    <div>Thanks so much</div>
+    `;
+  }
+
+  return result;
+};
 
 module.exports = {
   sendSimpleEmail,
