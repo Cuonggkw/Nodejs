@@ -4,6 +4,7 @@ import user from "../models/user";
 import { raw } from "body-parser";
 const bcrypt = require("bcrypt");
 
+// Password encryption by bcrypt.
 const salt = bcrypt.genSaltSync(10);
 
 const hasUserPass = (password) => {
