@@ -71,8 +71,14 @@ const getDetailSpecialtyById = (inputId, location) => {
       } else {
         let data = await db.Specialties.findOne({
           where: { id: inputId },
-          attributes: ["descriptionHTML", "descriptionMarkdown"],
+          attributes: ["descriptionHTML", "descriptionMarkdown", "image"],
         });
+
+        if (data && data.image) {
+          data.image = new Buffer(data.image, "base64").toString("binary");
+        }
+        if (!data) data = {};
+
         if (data) {
           // do something
           let doctorSpecialty = [];

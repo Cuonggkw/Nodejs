@@ -130,6 +130,7 @@ let handleCreateUsers = (data) => {
           roleId: data.roleId,
           positionId: data.positionId,
           image: data.avatar,
+          specialtyId: data.specialtyId,
         });
 
         resolve({
@@ -152,7 +153,7 @@ let updateUserData = (data) => {
           errMessage: "Missing required parameters",
         });
       }
-      const user = await db.User.findOne({
+      let user = await db.User.findOne({
         where: { id: data.id },
         raw: false,
       });
@@ -164,6 +165,7 @@ let updateUserData = (data) => {
         user.roleId = data.roleId;
         user.positionId = data.positionId;
         user.gender = data.gender;
+        specialtyId = data.specialtyId;
         if (data.avatar) {
           user.image = data.avatar;
         }

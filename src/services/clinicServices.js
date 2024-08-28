@@ -78,8 +78,14 @@ const getDetailClinicById = (inputId) => {
             "address",
             "descriptionHTML",
             "descriptionMarkdown",
+            "image",
           ],
         });
+        if (data && data.image) {
+          data.image = new Buffer(data.image, "base64").toString("binary");
+        }
+        if (!data) data = {};
+
         if (data) {
           // do something
           let doctorClinic = [];
