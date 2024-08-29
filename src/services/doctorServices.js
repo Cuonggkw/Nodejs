@@ -32,6 +32,10 @@ let getTopDoctorHome = (limitInput) => {
         raw: true,
         nest: true,
       });
+      // if (users && users.image) {
+      //   users.image = new Buffer(users.image, "base64").toString("binary");
+      // }
+      // if (!users) users = {};
 
       resolve({
         errCode: 0,
@@ -441,6 +445,26 @@ let getProfileDoctorById = (doctorId) => {
   });
 };
 
+const getListDoctor = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await db.User.findAll({
+        where: {
+          roleId: "R2",
+        },
+        attributes: ["firstName", "lastName", "specialtyId", "roleId"],
+      });
+
+      resolve({
+        errCode: 0,
+        data: data,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 module.exports = {
   getTopDoctorHome,
   getAllDoctors,
@@ -450,4 +474,5 @@ module.exports = {
   getScheduleDoctorByDate,
   getExtraInforDoctorById,
   getProfileDoctorById,
+  getListDoctor,
 };

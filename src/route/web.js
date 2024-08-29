@@ -51,6 +51,7 @@ const initWebRoutes = (app) => {
 
   // API Featured Doctor.
   router.get("/api/topdoctor-home", doctorController.getTopDoctorHome);
+  router.get("/api/listdoctor-home", doctorController.getListDoctor);
 
   // API All Doctor
   router.get("/api/get-all-doctor", doctorController.getAllDoctors);

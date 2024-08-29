@@ -111,6 +111,19 @@ const getProfileDoctorById = async (req, res) => {
   }
 };
 
+const getListDoctor = async (req, res) => {
+  try {
+    let infor = await doctorServices.getListDoctor();
+    return res.status(200).json(infor);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "Error from the server",
+    });
+  }
+};
+
 module.exports = {
   getTopDoctorHome,
   getAllDoctors,
@@ -120,6 +133,7 @@ module.exports = {
   getScheduleByDate,
   getExtraInforDoctorById,
   getProfileDoctorById,
+  getListDoctor,
 };
 
 // User POST then req.body để lấy tham số trên đường link url (id)
